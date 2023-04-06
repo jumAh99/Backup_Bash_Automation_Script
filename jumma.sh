@@ -20,8 +20,16 @@ function backmeup() {
     selectedOption=${1}
     # IF OPTION 1 WAS SELECTED
     if ((selectedOption == 1)); then
+        # GET THE USER DIRECTORY PATH WHERE THE FILES ARE STORED 
+        userDirectory=$(ls /home/bob/Documents/scripts/user)
         # LOOP THROUGH ALL THE FILES PRESENT IN THE USER FOLDER
-        echo
+        for entry in $userDirectory; do
+            # MAKE SURE TO GRA ONLY FILES AND DIRECTORIES /home/bob/Documents/scripts/
+            if [ -d "$entry" ] || [ -f "$entry" ]; then
+                # STORE ALL THE FILTERED FILES INTO A SOURCE FILE
+                sourceToBackup="${entry}"
+            fi
+        done
     fi
     # IF OPTION 2 WAS SELECTED 
     if ((selectedOption == 2)); then
@@ -31,4 +39,7 @@ function backmeup() {
     if ((selectedOption != 1 && selectedOption != 2)); then
         echo "ERROR: The selected option is invalid, for more information type 'backmeup-help'."
     fi
+
+    # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
+    tar -cvf "$sourceToBackup" /home/bob/Documents/scripts/
 }
