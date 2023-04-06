@@ -20,7 +20,8 @@ function backmeup() {
     selectedOption=${1}
     # IF OPTION 1 WAS SELECTED
     if ((selectedOption == 1)); then
-        echo "You have selected option 1!"
+        # LOOP THROUGH ALL THE FILES PRESENT IN THE USER FOLDER
+        echo
     fi
     # IF OPTION 2 WAS SELECTED 
     if ((selectedOption == 2)); then
