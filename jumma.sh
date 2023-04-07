@@ -1,11 +1,9 @@
 #!/bin/bash
 #jumma.sh THIS SCRIPT ALLOWS THE USER TO BACKUPS FILES AND FOLER BY PASSING A PARAMETER COMMAND
 
-echo "Welcome to our backup script, please type backmeup and what type of backup you would like to do"
-echo "1 = local backup"
-echo "2 = network backup"
-echo "Here is an example of how to execute the code 'backmeup {option}'. "
-
+echo "############################################
+            WELCOME TO BACKMEUP
+############################################"
 # THE FUNCTION THAT WILL ALLOW THE USER TO BACUP FILES
 function backmeup() { 
     # VARIABLE THAT WILL HOLD THE TOT NUMBER OF PARAMETERS PASSED 
@@ -48,4 +46,11 @@ function backmeup() {
 
     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
     tar -cvf "$destinationFile" "$sourceToBackup"
+}
+# ALLOW THE USER TO ACCESS USAGE INFORMATION AT ANY TIME 
+function bakmeup-help(){
+    echo "Welcome to our backup script, please type backmeup and what type of backup you would like to do"
+    echo "1 = local backup"
+    echo "2 = network backup"
+    echo "Here is an example of how to execute the code 'backmeup {option}'. "
 }
