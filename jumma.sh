@@ -1,7 +1,7 @@
 #!/bin/bash
 #jumma.sh THIS SCRIPT ALLOWS THE USER TO BACKUPS FILES AND FOLER BY PASSING A PARAMETER COMMAND
 
-echo "Welcome to our backup script, please type backmeup and what type op backup you would like to do"
+echo "Welcome to our backup script, please type backmeup and what type of backup you would like to do"
 echo "1 = local backup"
 echo "2 = network backup"
 echo "Here is an example of how to execute the code 'backmeup {option}'. "
@@ -10,6 +10,12 @@ echo "Here is an example of how to execute the code 'backmeup {option}'. "
 function backmeup() { 
     # VARIABLE THAT WILL HOLD THE TOT NUMBER OF PARAMETERS PASSED 
     parameterCounter=$#
+    # GET THE TIME AND DATE FOR ORGANISATION FOR BACKUPS 
+    timeStamp=$(date +%y%m%d-%H%M%S)
+    # SYSTEM CURRENT LOCATION 
+    locationPath=/home/bob/Documents/scripts
+    # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
+    destinationFile=$locationPath/Backups/backupFile$timeStamp.tar
     # MAKE SURE THAT THE CORRECT NUMBER OF PARAMETERS HAVE BEEN PASSED 
     if ((parameterCounter < 1)); then
         # LET THE USER KNOW THAT THE NUMBER OF PARAMETERS IS INCORRECT
@@ -21,10 +27,10 @@ function backmeup() {
     # IF OPTION 1 WAS SELECTED
     if ((selectedOption == 1)); then
         # GET THE USER DIRECTORY PATH WHERE THE FILES ARE STORED 
-        userDirectory=$(ls /home/bob/Documents/scripts/user)
+        userDirectory=$(ls $locationPath)
         # LOOP THROUGH ALL THE FILES PRESENT IN THE USER FOLDER
         for entry in $userDirectory; do
-            # MAKE SURE TO GRA ONLY FILES AND DIRECTORIES /home/bob/Documents/scripts/
+            # MAKE SURE TO GRAB ONLY FILES AND DIRECTORIES /home/bob/Documents/scripts/
             if [ -d "$entry" ] || [ -f "$entry" ]; then
                 # STORE ALL THE FILTERED FILES INTO A SOURCE FILE
                 sourceToBackup="${entry}"
@@ -41,5 +47,5 @@ function backmeup() {
     fi
 
     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
-    tar -cvf "$sourceToBackup" /home/bob/Documents/scripts/
+    tar -cvf "$destinationFile" "$sourceToBackup"
 }
