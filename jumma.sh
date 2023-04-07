@@ -11,11 +11,11 @@ function backmeup() {
     # VARIABLE THAT WILL HOLD THE TOT NUMBER OF PARAMETERS PASSED 
     parameterCounter=$#
     # GET THE TIME AND DATE FOR ORGANISATION FOR BACKUPS 
-    timeStamp=$(date +%y%m%d-%H%M%S)
+    timeStamp=$(date +"%Y-%m-%d-%H:%M:%S")
     # SYSTEM CURRENT LOCATION 
     locationPath=/home/bob/Documents/scripts
     # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
-    destinationFile=$locationPath/Backups/backupFile$timeStamp.tar
+    destinationFile=$locationPath/backups/biotech$timeStamp.tar
     # MAKE SURE THAT THE CORRECT NUMBER OF PARAMETERS HAVE BEEN PASSED 
     if ((parameterCounter < 1)); then
         # LET THE USER KNOW THAT THE NUMBER OF PARAMETERS IS INCORRECT
