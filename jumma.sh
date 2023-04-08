@@ -74,7 +74,7 @@ function backmeup() {
 # ALLOW THE USER TO ACCESS USAGE INFORMATION AT ANY TIME 
 function backmeup-help(){
     echo "Welcome to our backup script, please type backmeup and what type of backup you would like to do"
-    echo "1 = local backup"
-    echo "2 = network backup"
+    echo "1 = dialy backup"
+    echo "2 = full backup"
     echo "Here is an example of how to execute the code 'backmeup {option}'. "
 }
