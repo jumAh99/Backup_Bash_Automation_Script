@@ -6,22 +6,29 @@ echo "############################################
 ############################################"
 # THE FUNCTION THAT WILL ALLOW THE USER TO BACUP FILES
 function backmeup() { 
-    # VARIABLE THAT WILL HOLD THE TOT NUMBER OF PARAMETERS PASSED 
-    parameterCounter=$#
     # GET THE TIME AND DATE FOR ORGANISATION FOR BACKUPS 
     timeStamp=$(date +"%Y-%m-%d_%H:%M:%S")
     # SYSTEM CURRENT LOCATION 
     locationPath=/home/bob/Documents/scripts
+    # GET THE USER DIRECTORY PATH WHERE THE FILES ARE STORED 
+    listOfContentInTargetFolder=$(ls $locationPath/target)
+    # VARIABLE THAT WILL HOLD THE TOT NUMBER OF PARAMETERS PASSED 
+    parameterCounter=$#
+    # IF CORRECT NUMBER OF PARAMETER HAS BEEN GIVEN THEN STORE THE VALUE
+    selectedOption=${1}
     # MAKE SURE THAT THE CORRECT NUMBER OF PARAMETERS HAVE BEEN PASSED 
     if ((parameterCounter < 1)); then
         # LET THE USER KNOW THAT THE NUMBER OF PARAMETERS IS INCORRECT
         echo "ERROR: No option has been declared (1, 2), for more help try 'backmeup-help'."
+
+        # IF PARAMETERS WERE PASSED BUT THEY WERE INVALID (OTHER THA 1 OR 2)
+        else 
+            # IF THE OPTION SELECTED IS INVALID 
+            if ((selectedOption != 1 && selectedOption != 2)); then
+                echo "ERROR: The selected option is invalid, for more information type 'backmeup-help'."
+            fi
+
     fi
-    # IF CORRECT NUMBER OF PARAMETER HAS BEEN GIVEN THEN STORE THE VALUE
-    selectedOption=${1}
-    # GET THE USER DIRECTORY PATH WHERE THE FILES ARE STORED 
-    listOfContentInTargetFolder=$(ls $locationPath/target)
-    
     # IF OPTION 1 WAS SELECTED
     if ((selectedOption == 1)); then
         # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
@@ -70,10 +77,6 @@ function backmeup() {
                     break
             fi
         done
-    fi
-    # IF THE OPTION SELECTED IS INVALID 
-    if ((selectedOption != 1 && selectedOption != 2)); then
-        echo "ERROR: The selected option is invalid, for more information type 'backmeup-help'."
     fi
 }
 # ALLOW THE USER TO ACCESS USAGE INFORMATION AT ANY TIME 
