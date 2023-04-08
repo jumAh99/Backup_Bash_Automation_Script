@@ -28,18 +28,22 @@ function backmeup() {
         destinationFile=/home/bob/Documents/scripts/local-drive/biotech_$timeStamp.tar
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
-            if [ "$entry" == "usr" ] && [ "$entry" != "etc" ]; then
+            # IF THE USR FILE IS PRESENT IN THE TARGET DIRECTORY
+            if test -d "$locationPath/target/usr"; then
                 # IF ENTRY IS A FILE OR DIRECTORY
                 if [ -d "$locationPath/target/$entry" ] || [ -f "$locationPath/target/$entry" ]; then
-                    # STORE ALL THE FILTERED FILES INTO A SOURCE FILE
-                    sourceToBackup="${entry}"
                     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
-                    tar -cvf "$destinationFile" "target/$sourceToBackup"
+                    tar -cvf "$destinationFile" "target/usr"
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
                         echo "ERROR: $locationPath/target/$entry is not a file or directory!!"
+                        break
                 fi
+                # LET THE USER KNOW THAT FILES ARE MISSING
+                else
+                    echo "Some files are missing!" 
+                    break; 
             fi
         done
     fi
@@ -49,11 +53,10 @@ function backmeup() {
         destinationFile=/home/bob/Documents/scripts/network-drive/biotech-full_$timeStamp.tar
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
-            if [ "$entry" == "etc" ] || [ "$entry" == "usr" ]; then
+            # CHECK WEATHER THE REQUIRED FILES FOR FULL BACKUP ARE PRESENT
+            if test -d "$locationPath/target/usr"  &&  test -d "$locationPath/target/etc" ; then
                 # IF ENTRY IS A FILE OR DIRECTORY
                 if [ -d "$locationPath/target/$entry" ] || [ -f "$locationPath/target/$entry" ]; then
-                    # STORE ALL THE FILTERED FILES INTO A SOURCE FILE
-                    sourceToBackup="$entry"
                     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
                     tar -cvf "$destinationFile" "target/usr" "target/etc"
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
@@ -61,8 +64,10 @@ function backmeup() {
                         # PRINT A ERROR MESSAGE
                         echo "ERROR: $locationPath/target/$entry is not a file or directory!!"
                 fi
+                # MAKE THE USER AWARE THAT SOME FILES ARE MISSING SO BACKUP IS NOT POSSIBLE 
                 else
-                    echo "ERROR: $entry"
+                    echo "Some files are missing!"
+                    break
             fi
         done
     fi
