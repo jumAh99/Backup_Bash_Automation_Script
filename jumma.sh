@@ -46,10 +46,10 @@ function backmeup() {
     # IF OPTION 2 WAS SELECTED 
     if ((selectedOption == 2)); then
         # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
-        destinationFile=/home/bob/Documents/scripts/network-drive/biotech_$timeStamp.tar
+        destinationFile=/home/bob/Documents/scripts/network-drive/biotech-full_$timeStamp.tar
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
-            if [ "$entry" == "etc" ] && [ "$entry" != "usr" ]; then
+            if [ "$entry" == "etc" ] || [ "$entry" == "usr" ]; then
                 # IF ENTRY IS A FILE OR DIRECTORY
                 if [ -d "$locationPath/target/$entry" ] || [ -f "$locationPath/target/$entry" ]; then
                     # STORE ALL THE FILTERED FILES INTO A SOURCE FILE
