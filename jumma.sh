@@ -55,7 +55,7 @@ function backmeup() {
                     # STORE ALL THE FILTERED FILES INTO A SOURCE FILE
                     sourceToBackup="$entry"
                     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
-                    tar -cvf "$destinationFile" "target/$sourceToBackup"
+                    tar -cvf "$destinationFile" "target/usr" "target/etc"
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
