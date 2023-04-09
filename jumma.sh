@@ -4,6 +4,7 @@
 echo "############################################
             WELCOME TO BACKMEUP
 ############################################"
+
 # THE FUNCTION THAT WILL ALLOW THE USER TO BACUP FILES
 function backmeup() { 
     # GET THE TIME AND DATE FOR ORGANISATION FOR BACKUPS 
@@ -36,15 +37,15 @@ function backmeup() {
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
             # IF THE USR FILE IS PRESENT IN THE TARGET DIRECTORY
-            if test -d "/usr"; then
+            if test -d "$locationPath/target/usr"; then
                 # IF ENTRY IS A FILE OR DIRECTORY
-                if [ -d "/$entry" ] || [ -f "/$entry" ]; then
+                if [ -d "$locationPath/target/$entry" ] || [ -f "$locationPath/target/$entry" ]; then
                     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
-                    tar -cvf "$destinationFile" "/usr"
+                    tar -cvf "$destinationFile" "target/usr"
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
-                        echo "ERROR: /$entry is not a file or directory!!"
+                        echo "ERROR: $locationPath/target/$entry is not a file or directory!!"
                 fi
                 # LET THE USER KNOW THAT FILES ARE MISSING
                 else
@@ -60,11 +61,11 @@ function backmeup() {
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
             # CHECK WEATHER THE REQUIRED FILES FOR FULL BACKUP ARE PRESENT
-            if test -d "/usr"  &&  test -d "/etc" ; then
+            if test -d "$locationPath/target/usr"  &&  test -d "$locationPath/target/etc" ; then
                 # IF ENTRY IS A FILE OR DIRECTORY
                 if [ -d "/$entry" ] || [ -f "/$entry" ]; then
                     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
-                    tar -cvf "$destinationFile" "/usr" "/etc"
+                    tar -cvf "$destinationFile" "target/usr" "target/etc"
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
@@ -84,4 +85,18 @@ function backmeup-help(){
     echo "1 = dialy backup"
     echo "2 = full backup"
     echo "Here is an example of how to execute the code 'backmeup {option}'. "
+}
+# MONITOR THE DISK USAGE OF THE DRIVE 
+function monitorme(){
+    # GET THE DISK USAGE OF THE MAIN DIRECTORY SDA1
+    diskUsage=$(df --output=pcent /dev/sda1 | tr -dc '0-9')
+
+    # IF THE LOCAL DRIVE DISK USAGE IS MORE THAN 80%
+    if ((diskUsage >= 80)); then
+        # EXECUTE A FULL BACKUP OF THE SYSTEM 
+        backmeup 2
+        else 
+            # LET THE USER KNOW THAT BACKUP IS NOT NECESSARY
+            echo "ALERT: No need to emergency backup the disk usage is under 80%, current disk usage is:$diskUsage%"
+    fi
 }
