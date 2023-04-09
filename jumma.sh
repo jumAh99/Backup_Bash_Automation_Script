@@ -54,6 +54,7 @@ function backmeup() {
             fi
         done
     fi
+    
     # IF OPTION 2 WAS SELECTED 
     if ((selectedOption == 2)); then
         # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
@@ -78,6 +79,9 @@ function backmeup() {
             fi
         done
     fi
+
+    # LET THE USER NOW THAT THE FUNCTION HAS COMPLETED THE TASK
+    echo "END backmeup!"
 }
 # ALLOW THE USER TO ACCESS USAGE INFORMATION AT ANY TIME 
 function backmeup-help(){
@@ -95,6 +99,7 @@ function monitorme(){
     if ((diskUsage >= 80)); then
         # EXECUTE A FULL BACKUP OF THE SYSTEM 
         backmeup 2
+        echo "Backup Completed!"
         else 
             # LET THE USER KNOW THAT BACKUP IS NOT NECESSARY
             echo "ALERT: No need to emergency backup the disk usage is under 80%, current disk usage is:$diskUsage%"
