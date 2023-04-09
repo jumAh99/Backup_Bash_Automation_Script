@@ -1,5 +1,5 @@
 #!/bin/bash
-#jumma.sh THIS SCRIPT ALLOWS THE USER TO BACKUPS FILES AND FOLER BY PASSING A PARAMETER COMMAND
+#jumma.sh simple backup script, used to monitor and generate backups when required
 
 echo "############################################
             WELCOME TO BACKMEUP
@@ -21,7 +21,7 @@ function backmeup() {
         # LET THE USER KNOW THAT THE NUMBER OF PARAMETERS IS INCORRECT
         echo "ERROR: No option has been declared (1, 2), for more help try 'backmeup-help'."
 
-        # IF PARAMETERS WERE PASSED BUT THEY WERE INVALID (OTHER THA 1 OR 2)
+        # IF PARAMETERS WERE PASSED BUT THEY WERE INVALID (OTHER THAN 1 OR 2)
         else 
             # IF THE OPTION SELECTED IS INVALID 
             if ((selectedOption != 1 && selectedOption != 2)); then
@@ -32,20 +32,19 @@ function backmeup() {
     # IF OPTION 1 WAS SELECTED
     if ((selectedOption == 1)); then
         # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
-        destinationFile=/home/bob/Documents/scripts/local-drive/biotech_$timeStamp.tar
+        destinationFile=/run/media/bob/LocalDrive/biotech_$timeStamp.tar
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
             # IF THE USR FILE IS PRESENT IN THE TARGET DIRECTORY
-            if test -d "$locationPath/target/usr"; then
+            if test -d "/usr"; then
                 # IF ENTRY IS A FILE OR DIRECTORY
-                if [ -d "$locationPath/target/$entry" ] || [ -f "$locationPath/target/$entry" ]; then
+                if [ -d "/$entry" ] || [ -f "/$entry" ]; then
                     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
-                    tar -cvf "$destinationFile" "target/usr"
+                    tar -cvf "$destinationFile" "/usr"
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
-                        echo "ERROR: $locationPath/target/$entry is not a file or directory!!"
-                        break
+                        echo "ERROR: /$entry is not a file or directory!!"
                 fi
                 # LET THE USER KNOW THAT FILES ARE MISSING
                 else
@@ -57,15 +56,15 @@ function backmeup() {
     # IF OPTION 2 WAS SELECTED 
     if ((selectedOption == 2)); then
         # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
-        destinationFile=/home/bob/Documents/scripts/network-drive/biotech-full_$timeStamp.tar
+        destinationFile=/run/media/bob/NetworkDrive/biotech-full_$timeStamp.tar
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
             # CHECK WEATHER THE REQUIRED FILES FOR FULL BACKUP ARE PRESENT
-            if test -d "$locationPath/target/usr"  &&  test -d "$locationPath/target/etc" ; then
+            if test -d "/usr"  &&  test -d "/etc" ; then
                 # IF ENTRY IS A FILE OR DIRECTORY
-                if [ -d "$locationPath/target/$entry" ] || [ -f "$locationPath/target/$entry" ]; then
+                if [ -d "/$entry" ] || [ -f "/$entry" ]; then
                     # CREATE AN ARCHIVE WITH THE FILES THAT ARE VALID FOR THE BACKUP 
-                    tar -cvf "$destinationFile" "target/usr" "target/etc"
+                    tar -cvf "$destinationFile" "/usr" "/etc"
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
