@@ -10,7 +10,7 @@ function backmeup() {
     # GET THE TIME AND DATE FOR ORGANISATION FOR BACKUPS 
     timeStamp=$(date +"%Y-%m-%d_%H:%M:%S")
     # GET THE USER DIRECTORY PATH WHERE THE FILES ARE STORED 
-    listOfContentInTargetFolder=$(ls $locationPath/target)
+    listOfContentInTargetFolder=$(ls /)
     # VARIABLE THAT WILL HOLD THE TOT NUMBER OF PARAMETERS PASSED 
     parameterCounter=$#
     # IF CORRECT NUMBER OF PARAMETER HAS BEEN GIVEN THEN STORE THE VALUE
@@ -31,7 +31,7 @@ function backmeup() {
     # IF OPTION 1 WAS SELECTED
     if ((selectedOption == 1)); then
         # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
-        destinationFile=/run/media/bob/LocalDrive/biotech_$timeStamp.tar
+        destinationFile=/run/media/root/LocalDrive/biotech_$timeStamp.tar
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
             # IF THE USR FILE IS PRESENT IN THE TARGET DIRECTORY
@@ -43,7 +43,7 @@ function backmeup() {
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
-                        echo "ERROR: $entry is not a file or directory!!"
+                        echo "ERROR: /$entry is not a file or directory!!"
                 fi
                 # LET THE USER KNOW THAT FILES ARE MISSING
                 else
@@ -56,7 +56,7 @@ function backmeup() {
     # IF OPTION 2 WAS SELECTED 
     if ((selectedOption == 2)); then
         # DESTINATION OF WHERE THE ARCHIVES WILL BE STORED 
-        destinationFile=/run/media/bob/NetworkDrive/biotech-full_$timeStamp.tar
+        destinationFile=/run/media/root/NetworkDrive/biotech-full_$timeStamp.tar
         # LOOP TROUGH ALL THE FILES AND STORE THEM IN A VARIABLE NAMED ENTRY
         for entry in $listOfContentInTargetFolder; do
             # CHECK WEATHER THE REQUIRED FILES FOR FULL BACKUP ARE PRESENT
@@ -68,7 +68,7 @@ function backmeup() {
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
-                        echo "ERROR: $entry is not a file or director, or it is intended to not be backeup!!"
+                        echo "ERROR: /$entry is not a file or director, or it is intended to not be backeup!!"
                 fi
                 # MAKE THE USER AWARE THAT SOME FILES ARE MISSING SO BACKUP IS NOT POSSIBLE 
                 else
@@ -97,6 +97,7 @@ function monitorme(){
     if ((diskUsage >= 80)); then
         # EXECUTE A FULL BACKUP OF THE SYSTEM 
         backmeup 2
+        echo "Backup Completed!"
         else 
             # LET THE USER KNOW THAT BACKUP IS NOT NECESSARY
             echo "ALERT: No need to emergency backup the disk usage is under 80%, current disk usage is:$diskUsage%"
