@@ -96,7 +96,6 @@ function monitorme(){
     if ((diskUsage >= 80)); then
         # EXECUTE A FULL BACKUP OF THE SYSTEM 
         backmeup 2
-        echo "Backup Completed!"
         else 
             # LET THE USER KNOW THAT BACKUP IS NOT NECESSARY
             echo "ALERT: No need to emergency backup the disk usage is under 80%, current disk usage is:$diskUsage%"
