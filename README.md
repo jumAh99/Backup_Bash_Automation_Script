@@ -5,6 +5,7 @@
 # REQUIREMENTS 
 - USB (partitioned in 2) or drives with the name LocalDrive and NetworkDrive
 - Need to change the destination path to your desired one or just leave the one that I have and change just the username
+- You will also need to change the path of the drives, they are most likely in your '/run/media/yourUsername/yourDriveName' folder
 - You need ownership for the drives/partitions if not you need to run the script in su priviladges
 - Make sure to put the jumma.sh file in your /bin folder so you can call the script whenever in your terminal
 
