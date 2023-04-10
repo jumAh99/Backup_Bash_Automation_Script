@@ -1,5 +1,3 @@
-# Backup_Bash_Automation_Script
-
 # WHY USE THIS SCRIPT?
 - Makes life simpler
 - Automated backups for /etc file and /usr file
