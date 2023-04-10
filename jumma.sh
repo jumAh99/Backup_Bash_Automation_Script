@@ -1,16 +1,18 @@
 #!/bin/bash
 #jumma.sh simple backup script, used to monitor and generate backups when required
 
+# SEND A INITIATION MESSAGE
 echo "############################################
             WELCOME TO BACKMEUP
 ############################################"
-
 # THE FUNCTION THAT WILL ALLOW THE USER TO BACUP FILES
 function backmeup() { 
     # GET THE TIME AND DATE FOR ORGANISATION FOR BACKUPS 
     timeStamp=$(date +"%Y-%m-%d_%H:%M:%S")
     # SYSTEM CURRENT LOCATION 
     locationPath=/home/bob/Documents/scripts
+    # ENTER THE REQUIRED FOLDER 
+    cd /home/bob/Documents/scripts || exit
     # GET THE USER DIRECTORY PATH WHERE THE FILES ARE STORED 
     listOfContentInTargetFolder=$(ls $locationPath/target)
     # VARIABLE THAT WILL HOLD THE TOT NUMBER OF PARAMETERS PASSED 
@@ -70,7 +72,7 @@ function backmeup() {
                     # LET THE USER KNOW THAT THE FILE INDICATED IS NOT A FILE OR DIRECTORY
                     else
                         # PRINT A ERROR MESSAGE
-                        echo "ERROR: $locationPath/target/$entry is not a file or directory!!"
+                        echo "ERROR: $locationPath/target/$entry is not a file or director, or it is intended to not be backeup!!"
                 fi
                 # MAKE THE USER AWARE THAT SOME FILES ARE MISSING SO BACKUP IS NOT POSSIBLE 
                 else
