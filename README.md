@@ -12,7 +12,10 @@
 The script cannot automate the backups without your intervention, you need to conifgure crontab to run this script, here is how to do it:
 - Open terminal 
 - Run the command 'sudo crontab -e'
-- Copy the contents from crontab-settings.settings 
+- Delete everyhting in the crontab file 
+- Copy the contents from crontab-settings.settings
+- Paste the contant into the crontab file 
+- To save the file press ctrl+X and press ENTER
 - To check if they were applied type 'sudo crontab -l'
 - You should see the rules printed in your terminal
 - Done
