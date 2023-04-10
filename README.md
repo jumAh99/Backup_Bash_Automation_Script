@@ -9,6 +9,7 @@
 - Make sure to put the jumma.sh file in your /bin folder so you can call the script whenever in your terminal
 
 # HOW TO USE THE SCRIPT 
+- Put the jumma.sh script in your /bin folder, you will need to open this folder in administrative mode
 - Open terminal 
 - Type 'source jumma.sh' if you have ownership of the 2 drives required else type su --> your password when asked --> source jumma.sh
 - To do a daily backup type 'backmeup 1' or for a full backup type 'backmeup 2'
