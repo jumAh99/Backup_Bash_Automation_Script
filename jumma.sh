@@ -26,6 +26,7 @@ function backmeup() {
             if ((selectedOption != 1 && selectedOption != 2)); then
                 echo "ERROR: The selected option is invalid, for more information type 'backmeup-help'."
             fi
+            
     fi
     # IF OPTION 1 WAS SELECTED
     if ((selectedOption == 1)); then
