@@ -3,7 +3,7 @@
 - Automated backups for /etc file and /usr file
 
 # REQUIREMENTS 
-- USB (partitioned in 2) or drives with the name LocalDrive and NetworkDrive
+- USB (partitioned in 2) or drives with the name 'LocalDrive' and 'NetworkDrive'
 - Need to change the destination path to your desired one or just leave the one that I have and change just the username
 - You will also need to change the path of the drives, they are most likely in your '/run/media/yourUsername/yourDriveName' folder
 - You need ownership for the drives/partitions if not you need to run the script in su priviladges
@@ -12,7 +12,7 @@
 # HOW TO USE THE SCRIPT 
 - Put the jumma.sh script in your /bin folder, you will need to open this folder in administrative mode
 - Open terminal 
-- Type 'source jumma.sh' if you have ownership of the 2 drives required else type su --> your password when asked --> source jumma.sh
+- Type 'source jumma.sh' if you have ownership of the 2 drives required, else type su --> your password when asked --> source jumma.sh
 - To do a daily backup type 'backmeup 1' or for a full backup type 'backmeup 2'
 - For help type 'backmeup-help'
 - For monitoring the main drive type 'monitorme'
